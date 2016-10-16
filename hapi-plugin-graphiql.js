@@ -42,27 +42,29 @@ var register = function (server, options, next) {
         graphiqlGlobals: "",
         graphiqlURL: "/graphiql",
         graphqlFetchURL: "/graphql",
-        graphqlFetchOpts: `{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept":       "application/json"
-            },
-            body: JSON.stringify(params),
-            credentials: "same-origin"
-        }`,
+        graphqlFetchOpts:
+            "{\n" +
+            "    method: \"POST\",\n" +
+            "    headers: {\n" +
+            "        \"Content-Type\": \"application/json\",\n" +
+            "        \"Accept\":       \"application/json\"\n" +
+            "    },\n" +
+            "    body: JSON.stringify(params),\n" +
+            "    credentials: \"same-origin\"\n" +
+            "}\n",
         loginFetchURL: "/login",
-        loginFetchOpts: `{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            }),
-            credentials: "same-origin"
-        }`,
+        loginFetchOpts:
+            "{\n" +
+            "    method: \"POST\",\n" +
+            "    headers: {\n" +
+            "        \"Content-Type\": \"application/json\"\n" +
+            "    },\n" +
+            "    body: JSON.stringify({\n" +
+            "        username: username,\n" +
+            "        password: password\n" +
+            "    }),\n" +
+            "    credentials: \"same-origin\"\n" +
+            "}\n",
         loginFetchSuccess: "",
         loginFetchError: "",
         graphqlExample:
