@@ -10,6 +10,8 @@ hapi-plugin-graphiql
 <p/>
 <img src="https://david-dm.org/rse/hapi-plugin-graphiql.png" alt=""/>
 
+<img src="screenshot.png" alt=""/>
+
 Installation
 ------------
 
