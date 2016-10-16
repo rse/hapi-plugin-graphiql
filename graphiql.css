@@ -1,0 +1,74 @@
+/*
+**  Vote ~ Simple Voting App
+**  Design and Development by msg Applied Technology Research
+**  Copyright (c) 2016 msg systems ag (http://www.msg-systems.com/)
+**
+**  This Source Code Form is subject to the terms of the General Public License
+**  (GPL), version 3.0. If a copy of the GPL was not distributed with this file,
+**  You can obtain one at http://www.gnu.org/licenses/gpl.html.
+*/
+
+body {
+    margin:          0;
+    height:          100%;
+    width:           100%;
+    overflow:        hidden;
+}
+
+#graphiql {
+    width:           100vw;
+    height:          100vh;
+}
+
+.toolbar {
+    overflow:        hidden;
+    white-space:     nowrap;
+    display:         block;
+}
+
+#username-label,
+#password-label {
+    margin-left:     10px;
+    margin-right:    4px;
+}
+
+#username, #password {
+    height:          22px;
+    border-radius:   4px;
+    border:          1px solid #cccccc;
+    padding-left:    4px;
+    font-size:       14px;
+    width:           100px;
+}
+
+#status {
+    color:           #000000;
+}
+#status.error {
+    color:           #cc3333;
+}
+.graphiql-container .footer {
+    padding:         4px 10px 4px 10px;
+}
+
+.CodeMirror .CodeMirror-code   { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
+.CodeMirror .cm-keyword        { color: #408edc; font-weight: bold; }
+.CodeMirror .cm-atom           { color: #408edc; font-weight: bold; }
+.CodeMirror .cm-def            { color: #333333; font-style: italic; }
+.CodeMirror .cm-variable       { color: #408edc; }
+.CodeMirror .cm-string         { color: #b06820; }
+.CodeMirror .cm-number         { color: #b06820; }
+.CodeMirror .cm-punctuation    { color: #408edc; }
+.CodeMirror .cm-property       { color: #333333; }
+.CodeMirror .cm-attribute      { color: #333333; }
+
+.doc-type-description code     { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
+.doc-explorer-title            { color: #333333; }
+.doc-category .keyword         { color: #408edc; font-weight: bold; }
+.doc-category .field-name      { color: #333333; font-weight: bold; }
+.doc-category .arg-name        { color: #333333; }
+.doc-category .type-name       { color: #408edc; }
+.doc-explorer-back:before      { border-left-color: #666666 !important; border-top-color: #666666 !important; }
+.doc-explorer-back             { color: #666666 !important; }
+.docExplorerShow:before        { border-left-color: #666666 !important; border-top-color: #666666 !important; }
+.docExplorerShow               { color: #666666 !important; }
