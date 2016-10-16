@@ -1,6 +1,6 @@
 {
     "name":        "hapi-plugin-graphiql",
-    "version":     "0.9.0",
+    "version":     "0.9.1",
     "description": "HAPI plugin for GraphiQL integration",
     "keywords":    [ "hapi", "plugin", "graphiql", "graphql" ],
     "main":        "./hapi-plugin-graphiql.js",
