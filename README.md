@@ -90,11 +90,12 @@ server.register({
         graphqlFetchURL: "/api/data/graph",
         graphqlFetchOpts: `{
             method: "POST",
-            headers: {
+            headers: Object.assign({
                 "Content-Type":  "application/json",
-                "Accept":        "application/json",
-                "Authorization": "Bearer " + (token ? token : "(none)")
-            },
+                "Accept":        "application/json"
+            }, token ? {
+                "Authorization": "Bearer " + token
+            } : {}),
             body: JSON.stringify(graphQLParams),
             credentials: "same-origin"
         }`,
