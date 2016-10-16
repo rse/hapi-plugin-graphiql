@@ -78,8 +78,8 @@ This assumes you have a REST-based authentication endpoint
 GraphiQL UI then can be accessed under `/api`. The authentication
 endpoint is assumed to accept `{ username: "...", password: "..." }` and
 sets the authentication token as a HTTP cookie for `/api`. If you your
-authentication endpoint returns a token which has to be passed in an
-`Authorization` header, use the following configuration instead:
+authentication endpoint returns `{ token: "..." }` and the token has to be passed in an
+`Authorization` header as a Bearer token, use the following configuration instead:
 
 ```js
 server.register({
