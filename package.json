@@ -1,6 +1,6 @@
 {
     "name":        "hapi-plugin-graphiql",
-    "version":     "0.9.1",
+    "version":     "0.9.2",
     "description": "HAPI plugin for GraphiQL integration",
     "keywords":    [ "hapi", "plugin", "graphiql", "graphql" ],
     "main":        "./hapi-plugin-graphiql.js",
@@ -31,7 +31,7 @@
     },
     "devDependencies": {
         "babel-eslint": "~7.0.0",
-        "eslint":       "~3.8.0"
+        "eslint":       "~3.8.1"
     },
     "engines": {
         "node":         ">=4.0.0"
