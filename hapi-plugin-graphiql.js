@@ -99,8 +99,10 @@ var register = function (server, options, next) {
                         isTemplate = true
                         file = m[1]
                     }
-                    if ((m = file.match(/^@([^\/]+)(\/.+)$/)) !== null)
-                        file = require.resolve(m[1] + "/package.json").toString().replace(/\/package\.json$/, m[2])
+                    if ((m = file.match(/^@([^\/]+)\/(.+)$/)) !== null) {
+                        file = require.resolve(path.join(m[1], "package.json"))
+                        file = path.resolve(file.replace(/package\.json$/, ""), m[2])
+                    }
                     else
                         file = path.join(__dirname, file)
                     var data = yield (fs.readFile(file, "utf8"))
