@@ -27,7 +27,9 @@ server framework for seamless integration of
 [GraphiQL](https://github.com/graphql/graphiql), an interactive
 [GraphQL](http://graphql.org/) user interface. This variant of GraphiQL
 especially integrates a username/password based login dialog and reports
-network responses in the GraphiQL status bar.
+network responses in the GraphiQL status bar. In case of its
+downstream/local copy of GraphiQL, it also applies some [additional
+changes to GraphiQL's internals](local/).
 
 Usage
 -----
