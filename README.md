@@ -39,6 +39,7 @@ The shown options are actually the default ones:
 server.register({
     register: require("hapi-plugin-grapiql"),
     options: {
+        graphiqlSource: "downstream",
         graphiqlGlobals: "",
         graphiqlURL: "/api",
         graphqlFetchURL: "/api/data/graph",
@@ -87,6 +88,7 @@ authentication endpoint returns `{ token: "..." }` and the token has to be passe
 server.register({
     register: require("hapi-plugin-grapiql"),
     options: {
+        graphiqlSource: "downstream",
         graphiqlGlobals: `var token = null;`,
         graphiqlURL: "/api",
         graphqlFetchURL: "/api/data/graph",
@@ -124,6 +126,93 @@ server.register({
     }
 })
 ```
+
+Options
+-------
+
+The supported configuration options are:
+
+- `graphiqlSource`:<br/>
+  The source for GrapiQL, either `upstream` (original vendor version) or
+  `downstream` (patched local version).
+  Default: `"downstream"`
+
+- `graphiqlGlobals`:<br/>
+  JavaScript code snippet injected into the global scope of the GraphiQL integration.
+  Usually used for injecting a global variable for use in the other code snippets.
+  Default: `""`
+
+- `graphiqlURL`:<br/>
+  The URL under which the GraphiQL UI is registered for `GET` requests.
+  This can be even the same as the GraphQL URL, as it is usually registered for `POST` requests.
+  Default: `"/api"`
+
+- `graphqlFetchURL`:<br/>
+  The URL under which the GraphQL API can be reached via `POST` requests.
+  Default: `"/api/data/graph"`
+
+- `graphqlFetchOpts`:<br/>
+  JavaScript code snippet injected into the W3C-Fetch API call as options
+  for fetching a GraphQL query.
+  Default:
+
+    ```
+    `{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept":       "application/json"
+        },
+        body: JSON.stringify(graphQLParams),
+        credentials: "same-origin"
+    }`
+    ```
+
+- `loginFetchURL`:<br/>
+  JavaScript code snippet injected into the W3C-Fetch API call as options
+  for logging in.
+  Default: `"/api/auth/login"`
+
+- `loginFetchOpts`:<br/>
+  JavaScript code snippet injected into the W3C-Fetch API call as options
+  for logging in.
+  Default:
+
+    ```
+    `{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
+        }),
+        credentials: "same-origin"
+    }`
+    ```
+
+- `loginFetchSuccess`:<br/>
+  JavaScript code snippet injected into the success handler of the W3C-Fetch API call
+  for loggin in.
+  Default: `""`
+
+- `loginFetchError`:<br/>
+  JavaScript code snippet injected into the error handler of the W3C-Fetch API call
+  for loggin in.
+  Default: `""`
+
+- `graphqlExample`:<br/>
+  A GraphQL query string used as the initial query source in the UI.
+  Default:
+
+    ```
+    "query Example {\n" +
+    "    Session {\n" +
+    "        __typename # schema introspection\n" +
+    "    }\n" +
+    "}\n"
+    ```
 
 License
 -------
