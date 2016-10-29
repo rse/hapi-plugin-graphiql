@@ -39,6 +39,7 @@ var Package  = require("./package.json")
 var register = function (server, options, next) {
     /*  determine options  */
     options = Object.assign({}, {
+        graphiqlSource: "downstream",
         graphiqlGlobals: "",
         graphiqlURL: "/graphiql",
         graphqlFetchURL: "/graphql",
@@ -135,7 +136,7 @@ var register = function (server, options, next) {
                     "@whatwg-fetch/fetch.js",
                     "@react/dist/react.min.js",
                     "@react-dom/dist/react-dom.min.js",
-                    "@graphiql/graphiql.min.js",
+                    (options.graphiqlSource === "downstream" ? "./local/graphiql.min.js": "@graphiql/graphiql.min.js"),
                     "%graphiql.js"
                 ]
                 content = yield (loadFiles(files))
@@ -144,7 +145,7 @@ var register = function (server, options, next) {
             else if (name === "graphiql.css") {
                 /*  deliver CSS  */
                 files = [
-                    "@graphiql/graphiql.css",
+                    (options.graphiqlSource === "downstream" ? "./local/graphiql.css": "@graphiql/graphiql.css"),
                     "graphiql.css"
                 ]
                 content = yield (loadFiles(files))
