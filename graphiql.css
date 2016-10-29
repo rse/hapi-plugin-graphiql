@@ -65,25 +65,27 @@ body {
     padding:         4px 10px 4px 10px;
 }
 
-.CodeMirror .CodeMirror-code   { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
-.CodeMirror .cm-keyword        { color: #408edc; font-weight: bold; }
-.CodeMirror .cm-atom           { color: #408edc; font-weight: bold; }
-.CodeMirror .cm-def            { color: #333333; font-style: italic; }
-.CodeMirror .cm-variable       { color: #408edc; }
-.CodeMirror .cm-string         { color: #b06820; }
-.CodeMirror .cm-number         { color: #b06820; }
-.CodeMirror .cm-punctuation    { color: #408edc; }
-.CodeMirror .cm-property       { color: #333333; }
-.CodeMirror .cm-attribute      { color: #333333; }
+.CodeMirror .CodeMirror-code      { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
+.CodeMirror .cm-keyword           { color: #408edc; font-weight: bold; }
+.CodeMirror .cm-atom              { color: #408edc; font-weight: bold; }
+.CodeMirror .cm-def               { color: #333333; font-style: italic; }
+.CodeMirror .cm-variable          { color: #408edc; }
+.CodeMirror .cm-string            { color: #b06820; }
+.CodeMirror .cm-number            { color: #b06820; }
+.CodeMirror .cm-punctuation       { color: #408edc; }
+.CodeMirror .cm-property          { color: #333333; }
+.CodeMirror .cm-attribute         { color: #333333; }
 
-.doc-type-description code     { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
-.doc-explorer-title            { color: #333333; }
-.doc-category .keyword         { color: #408edc; font-weight: bold; }
-.doc-category .field-name      { color: #333333; font-weight: bold; }
-.doc-category .arg-name        { color: #333333; }
-.doc-category .type-name       { color: #408edc; }
-.doc-explorer-back:before      { border-left-color: #666666 !important; border-top-color: #666666 !important; }
-.doc-explorer-back             { color: #666666 !important; }
-.docExplorerShow:before        { border-left-color: #666666 !important; border-top-color: #666666 !important; }
-.docExplorerShow               { color: #666666 !important; }
+.doc-type-description code        { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
+.doc-type-description a           { color: #b06820; }
+.doc-type-description a.type-name { color: #408edc; }
+.doc-explorer-title               { color: #333333; }
+.doc-category .keyword            { color: #408edc; font-weight: bold; }
+.doc-category .field-name         { color: #333333; font-weight: bold; }
+.doc-category .arg-name           { color: #333333; }
+.doc-category .type-name          { color: #408edc; }
+.doc-explorer-back:before         { border-left-color: #666666 !important; border-top-color: #666666 !important; }
+.doc-explorer-back                { color: #666666 !important; }
+.docExplorerShow:before           { border-left-color: #666666 !important; border-top-color: #666666 !important; }
+.docExplorerShow                  { color: #666666 !important; }
 
