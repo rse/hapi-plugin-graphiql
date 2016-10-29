@@ -68,7 +68,7 @@ index 7cbe8a2..338d2ab 100644
    }
  }
 diff --git a/src/components/DocExplorer.js b/src/components/DocExplorer.js
-index c2d87ef..486f795 100644
+index c2d87ef..16cc507 100644
 --- a/src/components/DocExplorer.js
 +++ b/src/components/DocExplorer.js
 @@ -8,6 +8,7 @@
@@ -87,15 +87,7 @@ index c2d87ef..486f795 100644
                onClickType={this.handleClickTypeOrField}
              />;
        }
-@@ -175,6 +177,7 @@ export class DocExplorer extends React.Component {
-   }
- 
-   handleClickTypeOrField = typeOrField => {
-+      console.log("FUCKXXX", typeOrField)
-     this.showDoc(typeOrField);
-   }
- 
-@@ -377,6 +380,8 @@ class SchemaDoc extends React.Component {
+@@ -377,6 +379,8 @@ class SchemaDoc extends React.Component {
      return (
        <div>
          <MarkdownContent
@@ -104,7 +96,7 @@ index c2d87ef..486f795 100644
            className="doc-type-description"
            markdown={
              'A GraphQL schema provides a root type for each kind of operation.'
-@@ -523,12 +528,16 @@ class TypeDoc extends React.Component {
+@@ -523,12 +527,16 @@ class TypeDoc extends React.Component {
                  }
                </div>
                <MarkdownContent
@@ -121,7 +113,7 @@ index c2d87ef..486f795 100644
                      className="doc-alert-text"
                      markdown={value.deprecationReason}
                    />
-@@ -542,6 +551,8 @@ class TypeDoc extends React.Component {
+@@ -542,6 +550,8 @@ class TypeDoc extends React.Component {
      return (
        <div>
          <MarkdownContent
@@ -130,7 +122,7 @@ index c2d87ef..486f795 100644
            className="doc-type-description"
            markdown={type.description || 'No Description'}
          />
-@@ -559,6 +570,7 @@ class FieldDoc extends React.Component {
+@@ -559,6 +569,7 @@ class FieldDoc extends React.Component {
  
    static propTypes = {
      field: PropTypes.object,
@@ -138,7 +130,7 @@ index c2d87ef..486f795 100644
      onClickType: PropTypes.func,
    }
  
-@@ -584,6 +596,8 @@ class FieldDoc extends React.Component {
+@@ -584,6 +595,8 @@ class FieldDoc extends React.Component {
                  <TypeLink type={arg.type} onClick={this.props.onClickType} />
                </div>
                <MarkdownContent
@@ -147,7 +139,7 @@ index c2d87ef..486f795 100644
                  className="doc-value-description"
                  markdown={arg.description}
                />
-@@ -596,12 +610,16 @@ class FieldDoc extends React.Component {
+@@ -596,12 +609,16 @@ class FieldDoc extends React.Component {
      return (
        <div>
          <MarkdownContent
@@ -164,7 +156,7 @@ index c2d87ef..486f795 100644
                className="doc-alert-text"
                markdown={field.deprecationReason}
              />
-@@ -655,6 +673,8 @@ class MarkdownContent extends React.Component {
+@@ -655,6 +672,8 @@ class MarkdownContent extends React.Component {
    static propTypes = {
      markdown: PropTypes.string,
      className: PropTypes.string,
@@ -173,7 +165,7 @@ index c2d87ef..486f795 100644
    }
  
    shouldComponentUpdate(nextProps) {
-@@ -667,12 +687,33 @@ class MarkdownContent extends React.Component {
+@@ -667,12 +686,33 @@ class MarkdownContent extends React.Component {
        return <div />;
      }
  
