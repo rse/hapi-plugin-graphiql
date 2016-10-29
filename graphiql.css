@@ -74,6 +74,7 @@ body {
 .CodeMirror .cm-number            { color: #b06820; }
 .CodeMirror .cm-punctuation       { color: #408edc; }
 .CodeMirror .cm-property          { color: #333333; }
+.CodeMirror .cm-qualifier         { color: #333333; }
 .CodeMirror .cm-attribute         { color: #333333; }
 
 .doc-type-description code        { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
