@@ -133,8 +133,8 @@ Options
 The supported configuration options are:
 
 - `graphiqlSource`:<br/>
-  The source for GrapiQL, either `upstream` (original vendor version) or
-  `downstream` (patched local version).
+  The source for GraphiQL, either `upstream` (original vendor version) or
+  `downstream` ([patched local version](local/)).
   Default: `"downstream"`
 
 - `graphiqlGlobals`:<br/>
