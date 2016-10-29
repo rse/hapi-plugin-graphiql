@@ -66,7 +66,6 @@ body {
 }
 
 .CodeMirror .CodeMirror-code      { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
-.CodeMirror .CodeMirror-hints     { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
 .CodeMirror .cm-keyword           { color: #408edc; font-weight: bold; }
 .CodeMirror .cm-atom              { color: #408edc; font-weight: bold; }
 .CodeMirror .cm-def               { color: #333333; font-style: italic; }
@@ -77,13 +76,16 @@ body {
 .CodeMirror .cm-property          { color: #333333; }
 .CodeMirror .cm-qualifier         { color: #333333; }
 .CodeMirror .cm-attribute         { color: #333333; }
-.CodeMirror .CodeMirror-hint-information .content a         { color: #408edc; }
-.CodeMirror .CodeMirror-hint-information .content a:visited { color: #408edc; }
+
+.CodeMirror-hints                               { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
+.CodeMirror-hint-information .content a         { color: #408edc; }
+.CodeMirror-hint-information .content a:visited { color: #408edc; }
 
 .doc-type-description code        { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
 .doc-type-description a           { color: #b06820; }
 .doc-type-description a.type-name { color: #408edc; }
-.doc-value-description            { padding: 0 0 0 20px; }
+.doc-value-description            { margin: 0; padding: 0 0 0 20px; }
+.doc-value-description p          { margin: 0 0 4px 0; }
 .doc-explorer-title               { color: #333333; }
 .doc-category .keyword            { color: #408edc; font-weight: bold; }
 .doc-category .field-name         { color: #333333; font-weight: bold; }
