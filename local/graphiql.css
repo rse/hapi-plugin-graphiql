@@ -960,6 +960,20 @@ span.CodeMirror-selectedtext { background: none; }
   top: 47px;
 }
 
+.graphiql-container .doc-type-kind {
+  border-bottom: 1px solid #e0e0e0;
+  color: #777;
+  cursor: default;
+  font-size: 20px;
+  font-variant: small-caps;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0 -15px 10px 0;
+  padding: 10px 0;
+  -webkit-user-select: none;
+          user-select: none;
+}
+
 .graphiql-container .doc-type-description p:first-child ,
 .graphiql-container .doc-type-description blockquote:first-child {
   margin-top: 0;

@@ -1,3 +1,28 @@
+diff --git a/css/doc-explorer.css b/css/doc-explorer.css
+index 372f0fe..a7f5188 100644
+--- a/css/doc-explorer.css
++++ b/css/doc-explorer.css
+@@ -65,6 +65,20 @@
+   top: 47px;
+ }
+ 
++.graphiql-container .doc-type-kind {
++  border-bottom: 1px solid #e0e0e0;
++  color: #777;
++  cursor: default;
++  font-size: 20px;
++  font-variant: small-caps;
++  font-weight: bold;
++  letter-spacing: 1px;
++  margin: 0 -15px 10px 0;
++  padding: 10px 0;
++  -webkit-user-select: none;
++          user-select: none;
++}
++
+ .graphiql-container .doc-type-description p:first-child ,
+ .graphiql-container .doc-type-description blockquote:first-child {
+   margin-top: 0;
 diff --git a/package.json b/package.json
 index 7cbe8a2..338d2ab 100644
 --- a/package.json
@@ -68,7 +93,7 @@ index 7cbe8a2..338d2ab 100644
    }
  }
 diff --git a/src/components/DocExplorer.js b/src/components/DocExplorer.js
-index c2d87ef..16cc507 100644
+index c2d87ef..8698ef2 100644
 --- a/src/components/DocExplorer.js
 +++ b/src/components/DocExplorer.js
 @@ -8,6 +8,7 @@
@@ -113,16 +138,20 @@ index c2d87ef..16cc507 100644
                      className="doc-alert-text"
                      markdown={value.deprecationReason}
                    />
-@@ -542,6 +550,8 @@ class TypeDoc extends React.Component {
+@@ -541,7 +549,12 @@ class TypeDoc extends React.Component {
+ 
      return (
        <div>
++        <div className="doc-type-kind">
++          {'type'}
++        </div>
          <MarkdownContent
 +          schema={this.props.schema}
 +          onClickType={this.props.onClickType}
            className="doc-type-description"
            markdown={type.description || 'No Description'}
          />
-@@ -559,6 +569,7 @@ class FieldDoc extends React.Component {
+@@ -559,6 +572,7 @@ class FieldDoc extends React.Component {
  
    static propTypes = {
      field: PropTypes.object,
@@ -130,7 +159,7 @@ index c2d87ef..16cc507 100644
      onClickType: PropTypes.func,
    }
  
-@@ -584,6 +595,8 @@ class FieldDoc extends React.Component {
+@@ -584,6 +598,8 @@ class FieldDoc extends React.Component {
                  <TypeLink type={arg.type} onClick={this.props.onClickType} />
                </div>
                <MarkdownContent
@@ -139,9 +168,13 @@ index c2d87ef..16cc507 100644
                  className="doc-value-description"
                  markdown={arg.description}
                />
-@@ -596,12 +609,16 @@ class FieldDoc extends React.Component {
+@@ -595,13 +611,20 @@ class FieldDoc extends React.Component {
+ 
      return (
        <div>
++        <div className="doc-type-kind">
++          {'field'}
++        </div>
          <MarkdownContent
 +          schema={this.props.schema}
 +          onClickType={this.props.onClickType}
@@ -156,7 +189,7 @@ index c2d87ef..16cc507 100644
                className="doc-alert-text"
                markdown={field.deprecationReason}
              />
-@@ -655,6 +672,8 @@ class MarkdownContent extends React.Component {
+@@ -655,6 +678,8 @@ class MarkdownContent extends React.Component {
    static propTypes = {
      markdown: PropTypes.string,
      className: PropTypes.string,
@@ -165,7 +198,7 @@ index c2d87ef..16cc507 100644
    }
  
    shouldComponentUpdate(nextProps) {
-@@ -667,12 +686,33 @@ class MarkdownContent extends React.Component {
+@@ -667,12 +692,33 @@ class MarkdownContent extends React.Component {
        return <div />;
      }
  
