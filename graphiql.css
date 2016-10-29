@@ -66,6 +66,7 @@ body {
 }
 
 .CodeMirror .CodeMirror-code      { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
+.CodeMirror .CodeMirror-hints     { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
 .CodeMirror .cm-keyword           { color: #408edc; font-weight: bold; }
 .CodeMirror .cm-atom              { color: #408edc; font-weight: bold; }
 .CodeMirror .cm-def               { color: #333333; font-style: italic; }
@@ -76,6 +77,8 @@ body {
 .CodeMirror .cm-property          { color: #333333; }
 .CodeMirror .cm-qualifier         { color: #333333; }
 .CodeMirror .cm-attribute         { color: #333333; }
+.CodeMirror .CodeMirror-hint-information .content a         { color: #408edc; }
+.CodeMirror .CodeMirror-hint-information .content a:visited { color: #408edc; }
 
 .doc-type-description code        { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
 .doc-type-description a           { color: #b06820; }
