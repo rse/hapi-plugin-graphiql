@@ -80,9 +80,11 @@ body {
 .doc-type-description code        { font-family: "Menlo", "DejaVu Sans Mono", "Consolas", monospace; }
 .doc-type-description a           { color: #b06820; }
 .doc-type-description a.type-name { color: #408edc; }
+.doc-value-description            { padding: 0 0 0 20px; }
 .doc-explorer-title               { color: #333333; }
 .doc-category .keyword            { color: #408edc; font-weight: bold; }
 .doc-category .field-name         { color: #333333; font-weight: bold; }
+.doc-category .enum-value         { color: #333333; font-weight: bold; }
 .doc-category .arg-name           { color: #333333; }
 .doc-category .type-name          { color: #408edc; }
 .doc-explorer-back:before         { border-left-color: #666666 !important; border-top-color: #666666 !important; }
