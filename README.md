@@ -73,7 +73,9 @@ server.register({
             "    Session {\n" +
             "        __typename # schema introspection\n" +
             "    }\n" +
-            "}\n"
+            "}\n".
+        documentationURL:  "",
+        documentationFile: ""
     }
 })
 ```
@@ -215,6 +217,14 @@ The supported configuration options are:
     "    }\n" +
     "}\n"
     ```
+
+- `documentationURL`:<br/>
+   URL (usually under `graphiqlURL`) under which you want
+   to reference a single documentation file with the markdown
+   directive `[name](url)` from within your GraphQL schema comments.
+
+- `documentationFile`:<br/>
+  The local path to the file to serve if `documentationURL` is requested.
 
 License
 -------

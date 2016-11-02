@@ -73,7 +73,9 @@ var register = function (server, options, next) {
             "    Session {\n" +
             "        __typename # schema introspection\n" +
             "    }\n" +
-            "}\n"
+            "}\n",
+        documentationURL:  "",
+        documentationFile: ""
     }, options)
 
     /*  convenience redirect  */
@@ -155,6 +157,17 @@ var register = function (server, options, next) {
                 return reply(Boom.badRequest("invalid path"))
         })
     })
+
+    /*  optional static delivery of documentation  */
+    if (options.documentationURL !== "" && options.documentationFile !== "") {
+        server.route({
+            method: "GET",
+            path: options.documentationURL,
+            handler: co.wrap(function * (request, reply) {
+                reply.file(options.documentationFile, { confine: false })
+            })
+        })
+    }
 
     /*  continue processing  */
     next()
