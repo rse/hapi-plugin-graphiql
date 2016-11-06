@@ -24,10 +24,10 @@ index 372f0fe..a7f5188 100644
  .graphiql-container .doc-type-description blockquote:first-child {
    margin-top: 0;
 diff --git a/package.json b/package.json
-index 7cbe8a2..338d2ab 100644
+index 16d9ee3..929ce6c 100644
 --- a/package.json
 +++ b/package.json
-@@ -41,10 +41,11 @@
+@@ -41,10 +41,10 @@
      "prepublish": ". ./resources/prepublish.sh"
    },
    "dependencies": {
@@ -36,13 +36,12 @@ index 7cbe8a2..338d2ab 100644
      "codemirror-graphql": "^0.5.7",
 -    "eslint": "^3.7.1",
 -    "marked": "^0.3.5"
-+    "eslint": "^3.9.0",
-+    "html-to-react": "^1.2.1",
++    "eslint": "^3.9.1",
 +    "marked": "^0.3.6"
    },
    "peerDependencies": {
      "graphql": "^0.6.0 || ^0.7.0",
-@@ -52,28 +53,28 @@
+@@ -52,28 +52,28 @@
      "react-dom": ">=0.14.8"
    },
    "devDependencies": {
@@ -69,14 +68,13 @@ index 7cbe8a2..338d2ab 100644
 -    "eslint": "^3.7.1",
 -    "eslint-plugin-babel": "^3.0.0",
 -    "eslint-plugin-react": "^6.0.0",
--    "flow-bin": "^0.33.0",
++    "chai-subset": "^1.3.0",
++    "eslint": "^3.9.1",
++    "eslint-plugin-babel": "^3.3.0",
++    "eslint-plugin-react": "^6.5.0",
+     "flow-bin": "^0.34.0",
 -    "graphql": "^0.7.0",
 -    "jsdom": "^9.0.0",
-+    "chai-subset": "^1.3.0",
-+    "eslint": "^3.9.0",
-+    "eslint-plugin-babel": "^3.3.0",
-+    "eslint-plugin-react": "^6.4.1",
-+    "flow-bin": "^0.34.0",
 +    "graphql": "^0.7.2",
 +    "jsdom": "^9.8.3",
      "mocha": "3.1.2",
