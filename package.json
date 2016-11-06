@@ -27,7 +27,7 @@
         "react-dom":    "~15.3.2",
         "graphql":      "~0.7.2",
         "graphiql":     "~0.7.8",
-        "nunjucks":     "~2.5.2"
+        "nunjucks":     "~3.0.0"
     },
     "devDependencies": {
         "babel-eslint": "~7.1.0",
