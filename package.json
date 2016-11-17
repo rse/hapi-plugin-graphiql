@@ -19,19 +19,19 @@
     "dependencies": {
         "boom":         "~4.2.0",
         "co":           "~4.6.0",
-        "fs-promise":   "~0.5.0",
+        "fs-promise":   "~1.0.0",
         "bluebird":     "~3.4.6",
         "jquery":       "~3.1.1",
-        "whatwg-fetch": "~1.0.0",
-        "react":        "~15.3.2",
-        "react-dom":    "~15.3.2",
-        "graphql":      "~0.7.2",
-        "graphiql":     "~0.7.8",
+        "whatwg-fetch": "~2.0.1",
+        "react":        "~15.4.0",
+        "react-dom":    "~15.4.0",
+        "graphql":      "~0.8.2",
+        "graphiql":     "~0.8.0",
         "nunjucks":     "~3.0.0"
     },
     "devDependencies": {
         "babel-eslint": "~7.1.0",
-        "eslint":       "~3.9.1"
+        "eslint":       "~3.10.2"
     },
     "engines": {
         "node":         ">=4.0.0"
