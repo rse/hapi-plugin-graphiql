@@ -20,18 +20,18 @@
         "boom":         "~4.2.0",
         "co":           "~4.6.0",
         "fs-promise":   "~1.0.0",
-        "bluebird":     "~3.4.6",
+        "bluebird":     "~3.4.7",
         "jquery":       "~3.1.1",
-        "whatwg-fetch": "~2.0.1",
-        "react":        "~15.4.0",
-        "react-dom":    "~15.4.0",
-        "graphql":      "~0.8.2",
-        "graphiql":     "~0.8.0",
+        "whatwg-fetch": "~2.0.2",
+        "react":        "~15.4.2",
+        "react-dom":    "~15.4.2",
+        "graphql":      "~0.9.1",
+        "graphiql":     "~0.9.1",
         "nunjucks":     "~3.0.0"
     },
     "devDependencies": {
-        "babel-eslint": "~7.1.0",
-        "eslint":       "~3.10.2"
+        "babel-eslint": "~7.1.1",
+        "eslint":       "~3.14.1"
     },
     "engines": {
         "node":         ">=4.0.0"
