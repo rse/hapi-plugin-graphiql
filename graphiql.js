@@ -164,7 +164,6 @@ $(document).ready(function () {
     }
 
     /*  login and then render UI  */
-    renderUI()
-    login()
+    login().then(() => renderUI())
 })
 
