@@ -92,7 +92,11 @@ $(document).ready(function () {
 
     /*  connect to GraphQL backend using the Fetch API  */
     function graphQLFetcher (params) {
-        return fetch(window.location.origin + "{{graphqlFetchURL}}", {{graphqlFetchOpts}})
+        var fetchUrl = "{{graphqlFetchURL}}"
+        if (!fetchUrl.startsWith('http')) {
+          fetchUrl = window.location.origin + fetchUrl
+        }
+        return fetch(fetchUrl, {{graphqlFetchOpts}})
         .then(function (response) {
             if (response.status >= 200 && response.status < 300)
                 statusLine("success", "GraphQL request succeeded")
@@ -112,7 +116,11 @@ $(document).ready(function () {
     var username = ""
     var password = ""
     var login = function () {
-        return fetch(window.location.origin + "{{loginFetchURL}}", {{loginFetchOpts}})
+        let loginUrl = "{{loginFetchURL}}"
+        if (!loginUrl) {
+          loginUrl = window.location.origin + loginUrl
+        }
+        return fetch(loginUrl , {{loginFetchOpts}})
         .then(function (response) {
             if (response.status >= 200 && response.status < 300) {
                 {{loginFetchSuccess}}
