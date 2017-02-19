@@ -112,12 +112,14 @@ var register = function (server, options, next) {
                     if (isTemplate) {
                         var env = nunjucks.configure({ autoescape: false })
                         data = (new nunjucks.Template(data, env)).render({
-                            graphiqlGlobals:  options.graphiqlGlobals,
-                            graphqlFetchURL:  options.graphqlFetchURL,
-                            graphqlFetchOpts: options.graphqlFetchOpts,
-                            loginFetchURL:    options.loginFetchURL,
-                            loginFetchOpts:   options.loginFetchOpts,
-                            graphqlExample:   JSON.stringify(options.graphqlExample)
+                            graphiqlGlobals:   options.graphiqlGlobals,
+                            graphqlFetchURL:   options.graphqlFetchURL,
+                            graphqlFetchOpts:  options.graphqlFetchOpts,
+                            loginFetchURL:     options.loginFetchURL,
+                            loginFetchOpts:    options.loginFetchOpts,
+                            loginFetchSuccess: options.loginFetchSuccess,
+                            loginFetchError:   options.loginFetchError,
+                            graphqlExample:    JSON.stringify(options.graphqlExample)
                         })
                     }
                     return data
