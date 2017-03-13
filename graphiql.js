@@ -133,6 +133,12 @@ $(document).ready(function () {
         })
     }
 
+    function prettify () {
+      var editor = this.graphiql.getQueryEditor();
+			var prettyText = GraphQL.print(GraphQL.parse(editor.getValue()));
+      editor.setValue(prettyText);
+    }
+
     /*  GraphiQL UI rendering  */
     var renderUI = function () {
         ReactDOM.render(React.createElement(GraphiQL, {
@@ -142,9 +148,15 @@ $(document).ready(function () {
             operationName:       parameters.operationName,
             onEditQuery:         onEditQuery,
             onEditVariables:     onEditVariables,
-            onEditOperationName: onEditOperationName
+            onEditOperationName: onEditOperationName,
+            ref:                 function (c) { this.graphiql = c }
         },
             React.createElement(GraphiQL.Toolbar, {},
+                React.createElement(GraphiQL.ToolbarButton, {
+                    label: "Pretiffy",
+                    title: "Pretiffy Query",
+                    onClick: function () { prettify(); return true }
+                }),
                 React.DOM.label({ id: "username-label", htmlFor: "username" }, "Username:"),
                 React.DOM.input({
                     id: "username",
