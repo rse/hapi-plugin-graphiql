@@ -2,7 +2,7 @@
 Downstream/Local GraphiQL Version
 =================================
 
-This is a snapshot of the pre-built upstream [GraphiQL](https://github.com/graphql/graphiql) code as of 2016-11-17.
+This is a snapshot of the pre-built upstream [GraphiQL](https://github.com/graphql/graphiql) code as of 2017-03-14.
 It was [patched](graphiql.diff) to provide the following distinct changes against the upstream version (in order
 of importance for me):
 

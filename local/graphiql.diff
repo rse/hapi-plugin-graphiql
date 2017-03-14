@@ -1,8 +1,8 @@
 diff --git a/css/doc-explorer.css b/css/doc-explorer.css
-index fb2f1b6..b562b1e 100644
+index 511297a..a9b9fd8 100644
 --- a/css/doc-explorer.css
 +++ b/css/doc-explorer.css
-@@ -65,6 +65,20 @@
+@@ -66,6 +66,20 @@
    top: 47px;
  }
  
@@ -23,20 +23,9 @@ index fb2f1b6..b562b1e 100644
  .graphiql-container .doc-type-description p:first-child ,
  .graphiql-container .doc-type-description blockquote:first-child {
    margin-top: 0;
-diff --git a/package.json b/package.json
-index e3ee4fd..9c4cb63 100644
---- a/package.json
-+++ b/package.json
-@@ -79,6 +79,7 @@
-     "react": "15.4.2",
-     "react-dom": "15.4.2",
-     "react-test-renderer": "15.4.2",
-+    "html-to-react": "1.2.2",
-     "uglify-js": "2.7.5",
-     "uglifyify": "3.0.4",
-     "watchify": "3.9.0"
+* Unmerged path package.json
 diff --git a/src/components/DocExplorer.js b/src/components/DocExplorer.js
-index 4a2886f..73712db 100644
+index e46869d..8902425 100644
 --- a/src/components/DocExplorer.js
 +++ b/src/components/DocExplorer.js
 @@ -101,6 +101,7 @@ export class DocExplorer extends React.Component {
@@ -169,7 +158,7 @@ index 2a2303b..7213a0d 100644
            markdown={
              'A GraphQL schema provides a root type for each kind of operation.'
 diff --git a/src/components/DocExplorer/TypeDoc.js b/src/components/DocExplorer/TypeDoc.js
-index fdddc7b..75c93a3 100644
+index 3079cac..03568f0 100644
 --- a/src/components/DocExplorer/TypeDoc.js
 +++ b/src/components/DocExplorer/TypeDoc.js
 @@ -156,7 +156,12 @@ export default class TypeDoc extends React.Component {
@@ -185,7 +174,7 @@ index fdddc7b..75c93a3 100644
            className="doc-type-description"
            markdown={type.description || 'No Description'}
          />
-@@ -199,6 +204,8 @@ function Field({ type, field, onClickType, onClickField }) {
+@@ -203,6 +208,8 @@ function Field({ type, field, onClickType, onClickField }) {
        {
          field.deprecationReason &&
          <MarkdownContent
@@ -194,7 +183,7 @@ index fdddc7b..75c93a3 100644
            className="doc-deprecation"
            markdown={field.deprecationReason}
          />
-@@ -221,12 +228,16 @@ function EnumValue({ value }) {
+@@ -225,12 +232,16 @@ function EnumValue({ value }) {
          {value.name}
        </div>
        <MarkdownContent
@@ -212,10 +201,10 @@ index fdddc7b..75c93a3 100644
            markdown={value.deprecationReason}
          />
 diff --git a/src/components/GraphiQL.js b/src/components/GraphiQL.js
-index 32abcf8..a2ab0f4 100644
+index 037f729..be95a82 100644
 --- a/src/components/GraphiQL.js
 +++ b/src/components/GraphiQL.js
-@@ -640,7 +640,10 @@ export class GraphiQL extends React.Component {
+@@ -657,7 +657,10 @@ export class GraphiQL extends React.Component {
  
    handlePrettifyQuery = () => {
      const editor = this.getQueryEditor();
