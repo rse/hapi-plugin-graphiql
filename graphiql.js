@@ -92,7 +92,11 @@ $(document).ready(function () {
 
     /*  connect to GraphQL backend using the Fetch API  */
     function graphQLFetcher (params) {
-        return fetch(window.location.origin + "{{graphqlFetchURL}}", {{graphqlFetchOpts}})
+        var fetchUrl = "{{graphqlFetchURL}}"
+        if (!fetchUrl.startsWith('http')) {
+          fetchUrl = window.location.origin + fetchUrl
+        }
+        return fetch(fetchUrl, {{graphqlFetchOpts}})
         .then(function (response) {
             if (response.status >= 200 && response.status < 300)
                 statusLine("success", "GraphQL request succeeded")
@@ -112,7 +116,11 @@ $(document).ready(function () {
     var username = ""
     var password = ""
     var login = function () {
-        return fetch(window.location.origin + "{{loginFetchURL}}", {{loginFetchOpts}})
+        let loginUrl = "{{loginFetchURL}}"
+        if (!loginUrl) {
+          loginUrl = window.location.origin + loginUrl
+        }
+        return fetch(loginUrl , {{loginFetchOpts}})
         .then(function (response) {
             if (response.status >= 200 && response.status < 300) {
                 {{loginFetchSuccess}}
@@ -125,6 +133,12 @@ $(document).ready(function () {
         })
     }
 
+    function prettify () {
+      var editor = this.graphiql.getQueryEditor();
+			var prettyText = GraphQL.print(GraphQL.parse(editor.getValue()));
+      editor.setValue(prettyText);
+    }
+
     /*  GraphiQL UI rendering  */
     var renderUI = function () {
         ReactDOM.render(React.createElement(GraphiQL, {
@@ -134,9 +148,15 @@ $(document).ready(function () {
             operationName:       parameters.operationName,
             onEditQuery:         onEditQuery,
             onEditVariables:     onEditVariables,
-            onEditOperationName: onEditOperationName
+            onEditOperationName: onEditOperationName,
+            ref:                 function (c) { this.graphiql = c }
         },
             React.createElement(GraphiQL.Toolbar, {},
+                React.createElement(GraphiQL.ToolbarButton, {
+                    label: "Pretiffy",
+                    title: "Pretiffy Query",
+                    onClick: function () { prettify(); return true }
+                }),
                 React.DOM.label({ id: "username-label", htmlFor: "username" }, "Username:"),
                 React.DOM.input({
                     id: "username",

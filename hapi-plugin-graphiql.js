@@ -141,6 +141,7 @@ var register = function (server, options, next) {
                     "@react/dist/react.min.js",
                     "@react-dom/dist/react-dom.min.js",
                     (options.graphiqlSource === "downstream" ? "./local/graphiql.min.js": "@graphiql/graphiql.min.js"),
+                    "./local/graphql.js",
                     "%graphiql.js"
                 ]
                 content = yield (loadFiles(files))
