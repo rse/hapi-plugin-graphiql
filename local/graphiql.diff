@@ -1,9 +1,9 @@
 diff --git a/css/doc-explorer.css b/css/doc-explorer.css
-index 511297a..a9b9fd8 100644
+index 7406255..c169db4 100644
 --- a/css/doc-explorer.css
 +++ b/css/doc-explorer.css
-@@ -66,6 +66,20 @@
-   top: 47px;
+@@ -72,6 +72,20 @@
+   min-width: 300px;
  }
  
 +.graphiql-container .doc-type-kind {
@@ -23,12 +23,69 @@ index 511297a..a9b9fd8 100644
  .graphiql-container .doc-type-description p:first-child ,
  .graphiql-container .doc-type-description blockquote:first-child {
    margin-top: 0;
-* Unmerged path package.json
+diff --git a/package.json b/package.json
+index 5712c69..9e9c69e 100644
+--- a/package.json
++++ b/package.json
+@@ -49,8 +49,8 @@
+     ]
+   },
+   "dependencies": {
+-    "codemirror": "^5.26.0",
+-    "codemirror-graphql": "^0.6.8",
++    "codemirror": "^5.27.4",
++    "codemirror-graphql": "^0.6.9",
+     "marked": "0.3.6"
+   },
+   "peerDependencies": {
+@@ -60,12 +60,12 @@
+     "react-dom": "^15.6.0"
+   },
+   "devDependencies": {
+-    "autoprefixer": "^7.0.0",
++    "autoprefixer": "^7.1.1",
+     "babel-cli": "6.24.1",
+     "babel-eslint": "7.2.3",
+     "babel-plugin-syntax-async-functions": "6.13.0",
+     "babel-plugin-transform-class-properties": "6.24.1",
+-    "babel-plugin-transform-object-rest-spread": "6.22.0",
++    "babel-plugin-transform-object-rest-spread": "6.23.0",
+     "babel-plugin-transform-regenerator": "6.24.1",
+     "babel-preset-es2015": "6.24.1",
+     "babel-preset-react": "6.24.1",
+@@ -80,19 +80,20 @@
+     "express": "5.0.0-alpha.5",
+     "express-graphql": "0.6.6",
+     "flow-bin": "0.49.1",
+-    "graphql": "^0.10.1",
+-    "husky": "^0.14.0",
++    "graphql": "^0.10.3",
++    "husky": "^0.14.2",
+     "jsdom": "11.0.0",
+     "lint-staged": "^4.0.0",
+     "mocha": "3.4.2",
+     "postcss-cli": "4.1.0",
+-    "prettier": "^1.4.4",
+-    "prop-types": "15.5.8",
+-    "react": "15.5.4",
+-    "react-dom": "15.5.4",
++    "prettier": "^1.5.2",
++    "prop-types": "15.5.10",
++    "react": "15.6.1",
++    "react-dom": "15.6.1",
+     "react-test-renderer": "15.6.1",
+-    "uglify-js": "^3.0.20",
++    "uglify-js": "^3.0.22",
+     "uglifyify": "^4.0.2",
++    "html-to-react": "1.2.11",
+     "watchify": "3.9.0"
+   }
+ }
 diff --git a/src/components/DocExplorer.js b/src/components/DocExplorer.js
-index e46869d..8902425 100644
+index 6487db2..3d1c328 100644
 --- a/src/components/DocExplorer.js
 +++ b/src/components/DocExplorer.js
-@@ -101,6 +101,7 @@ export class DocExplorer extends React.Component {
+@@ -102,6 +102,7 @@ export class DocExplorer extends React.Component {
          <FieldDoc
            field={navItem.def}
            onClickType={this.handleClickTypeOrField}
@@ -37,10 +94,10 @@ index e46869d..8902425 100644
      }
  
 diff --git a/src/components/DocExplorer/FieldDoc.js b/src/components/DocExplorer/FieldDoc.js
-index 828b16b..864e2bf 100644
+index f425168..43b287c 100644
 --- a/src/components/DocExplorer/FieldDoc.js
 +++ b/src/components/DocExplorer/FieldDoc.js
-@@ -11,9 +11,11 @@ import React, { PropTypes } from 'react';
+@@ -12,9 +12,11 @@ import PropTypes from 'prop-types';
  import Argument from './Argument';
  import MarkdownContent from './MarkdownContent';
  import TypeLink from './TypeLink';
@@ -52,7 +109,7 @@ index 828b16b..864e2bf 100644
      field: PropTypes.object,
      onClickType: PropTypes.func,
    }
-@@ -38,6 +40,8 @@ export default class FieldDoc extends React.Component {
+@@ -39,6 +41,8 @@ export default class FieldDoc extends React.Component {
                  <Argument arg={arg} onClickType={this.props.onClickType} />
                </div>
                <MarkdownContent
@@ -61,7 +118,7 @@ index 828b16b..864e2bf 100644
                  className="doc-value-description"
                  markdown={arg.description}
                />
-@@ -49,13 +53,20 @@ export default class FieldDoc extends React.Component {
+@@ -50,13 +54,20 @@ export default class FieldDoc extends React.Component {
  
      return (
        <div>
@@ -83,12 +140,12 @@ index 828b16b..864e2bf 100644
              markdown={field.deprecationReason}
            />
 diff --git a/src/components/DocExplorer/MarkdownContent.js b/src/components/DocExplorer/MarkdownContent.js
-index f4f08c6..50616e7 100644
+index 12f4cad..a8602d6 100644
 --- a/src/components/DocExplorer/MarkdownContent.js
 +++ b/src/components/DocExplorer/MarkdownContent.js
-@@ -8,11 +8,16 @@
- 
- import React, { PropTypes } from 'react';
+@@ -9,11 +9,16 @@
+ import React from 'react';
+ import PropTypes from 'prop-types';
  import Marked from 'marked';
 +import { GraphQLSchema } from 'graphql';
 +import TypeLink from './TypeLink';
@@ -103,7 +160,7 @@ index f4f08c6..50616e7 100644
    }
  
    shouldComponentUpdate(nextProps) {
-@@ -25,12 +30,33 @@ export default class MarkdownContent extends React.Component {
+@@ -26,12 +31,33 @@ export default class MarkdownContent extends React.Component {
        return <div />;
      }
  
@@ -145,10 +202,10 @@ index f4f08c6..50616e7 100644
    }
  }
 diff --git a/src/components/DocExplorer/SchemaDoc.js b/src/components/DocExplorer/SchemaDoc.js
-index 2a2303b..7213a0d 100644
+index 6aa6bb3..fd3c5ac 100644
 --- a/src/components/DocExplorer/SchemaDoc.js
 +++ b/src/components/DocExplorer/SchemaDoc.js
-@@ -32,6 +32,8 @@ export default class SchemaDoc extends React.Component {
+@@ -33,6 +33,8 @@ export default class SchemaDoc extends React.Component {
      return (
        <div>
          <MarkdownContent
@@ -158,10 +215,10 @@ index 2a2303b..7213a0d 100644
            markdown={
              'A GraphQL schema provides a root type for each kind of operation.'
 diff --git a/src/components/DocExplorer/TypeDoc.js b/src/components/DocExplorer/TypeDoc.js
-index 3079cac..03568f0 100644
+index 80d81e6..fd0fdad 100644
 --- a/src/components/DocExplorer/TypeDoc.js
 +++ b/src/components/DocExplorer/TypeDoc.js
-@@ -156,7 +156,12 @@ export default class TypeDoc extends React.Component {
+@@ -157,7 +157,12 @@ export default class TypeDoc extends React.Component {
  
      return (
        <div>
@@ -174,7 +231,7 @@ index 3079cac..03568f0 100644
            className="doc-type-description"
            markdown={type.description || 'No Description'}
          />
-@@ -203,6 +208,8 @@ function Field({ type, field, onClickType, onClickField }) {
+@@ -204,6 +209,8 @@ function Field({ type, field, onClickType, onClickField }) {
        {
          field.deprecationReason &&
          <MarkdownContent
@@ -183,7 +240,7 @@ index 3079cac..03568f0 100644
            className="doc-deprecation"
            markdown={field.deprecationReason}
          />
-@@ -225,12 +232,16 @@ function EnumValue({ value }) {
+@@ -226,12 +233,16 @@ function EnumValue({ value }) {
          {value.name}
        </div>
        <MarkdownContent
@@ -201,10 +258,10 @@ index 3079cac..03568f0 100644
            markdown={value.deprecationReason}
          />
 diff --git a/src/components/GraphiQL.js b/src/components/GraphiQL.js
-index 037f729..be95a82 100644
+index 34a565d..604baf5 100644
 --- a/src/components/GraphiQL.js
 +++ b/src/components/GraphiQL.js
-@@ -657,7 +657,10 @@ export class GraphiQL extends React.Component {
+@@ -664,7 +664,10 @@ export class GraphiQL extends React.Component {
  
    handlePrettifyQuery = () => {
      const editor = this.getQueryEditor();
