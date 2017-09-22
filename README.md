@@ -73,7 +73,7 @@ server.register({
             "    Session {\n" +
             "        __typename # schema introspection\n" +
             "    }\n" +
-            "}\n".
+            "}\n",
         documentationURL:  "",
         documentationFile: ""
     }
