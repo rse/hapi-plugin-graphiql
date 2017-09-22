@@ -90,7 +90,7 @@ authentication endpoint returns `{ token: "..." }` and the token has to be passe
 
 ```js
 server.register({
-    register: require("hapi-plugin-grapiql"),
+    register: require("hapi-plugin-graphiql"),
     options: {
         graphiqlSource: "downstream",
         graphiqlGlobals: `var token = null;`,
@@ -119,7 +119,7 @@ server.register({
             }),
             credentials: "same-origin"
         }`,
-        loginFetchSuccess: `token = JSON.parse(response.text()).token;`
+        loginFetchSuccess: `token = JSON.parse(response.text()).token;`,
         loginFetchError:   `token = null;`,
         graphqlExample:
             "query Example {\n" +
