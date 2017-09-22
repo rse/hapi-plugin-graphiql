@@ -39,7 +39,7 @@ The shown options are actually the default ones:
 
 ```js
 server.register({
-    register: require("hapi-plugin-grapiql"),
+    register: require("hapi-plugin-graphiql"),
     options: {
         graphiqlSource: "downstream",
         graphiqlGlobals: "",
