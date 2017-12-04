@@ -137,15 +137,15 @@ $(document).ready(function () {
             onEditOperationName: onEditOperationName
         },
             React.createElement(GraphiQL.Toolbar, {},
-                React.DOM.label({ id: "username-label", htmlFor: "username" }, "Username:"),
-                React.DOM.input({
+                ReactDOMFactories.label({ id: "username-label", htmlFor: "username" }, "Username:"),
+                ReactDOMFactories.input({
                     id: "username",
                     type: "text",
                     placeholder: "Username...",
                     onChange: function (arg) { username = arg.target.value }
                 }),
-                React.DOM.label({ id: "password-label", htmlFor: "password" }, "Password:"),
-                React.DOM.input({
+                ReactDOMFactories.label({ id: "password-label", htmlFor: "password" }, "Password:"),
+                ReactDOMFactories.input({
                     id: "password",
                     placeholder: "Password...",
                     type: "password",
@@ -158,7 +158,7 @@ $(document).ready(function () {
                 })
             ),
             React.createElement(GraphiQL.Footer, {},
-                React.DOM.div({ id: "status" }, "")
+                ReactDOMFactories.div({ id: "status" }, "")
             )
         ), document.getElementById("graphiql"))
     }

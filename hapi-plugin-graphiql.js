@@ -27,7 +27,7 @@ var path     = require("path")
 
 /*  external dependencies  */
 var Promise  = require("bluebird")
-var fs       = require("fs-promise")
+var fs       = require("mz/fs")
 var Boom     = require("boom")
 var co       = require("co")
 var nunjucks = require("nunjucks")
@@ -138,8 +138,9 @@ var register = function (server, options, next) {
                 files = [
                     "@jquery/dist/jquery.min.js",
                     "@whatwg-fetch/fetch.js",
-                    "@react/dist/react.min.js",
-                    "@react-dom/dist/react-dom.min.js",
+                    "@react/umd/react.production.min.js",
+                    "@react-dom/umd/react-dom.production.min.js",
+                    "@react-dom-factories/index.js",
                     (options.graphiqlSource === "downstream" ? "./local/graphiql.min.js": "@graphiql/graphiql.min.js"),
                     "%graphiql.js"
                 ]
