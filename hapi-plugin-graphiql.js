@@ -36,7 +36,7 @@ var nunjucks = require("nunjucks")
 var Package  = require("./package.json")
 
 /*  the HAPI plugin register function  */
-var register = function (server, options, next) {
+var register = function (server, options) {
     /*  determine options  */
     options = Object.assign({}, {
         graphiqlSource: "downstream",
@@ -82,8 +82,8 @@ var register = function (server, options, next) {
     server.route({
         method: "GET",
         path: options.graphiqlURL,
-        handler: function (request, reply) {
-            reply.redirect(options.graphiqlURL + "/")
+        handler: function (request, h) {
+            return h.redirect(options.graphiqlURL + "/")
         }
     })
 
@@ -91,7 +91,7 @@ var register = function (server, options, next) {
     server.route({
         method: "GET",
         path: options.graphiqlURL + "/{name*}",
-        handler: co.wrap(function * (request, reply) {
+        handler: co.wrap(function * (request, h) {
             var name = request.params.name
             var files, content
             var loadFiles = co.wrap(function * (files) {
@@ -131,7 +131,9 @@ var register = function (server, options, next) {
                     "graphiql.html"
                 ]
                 content = yield (loadFiles(files))
-                return reply(content).type("text/html")
+                var response = h.response(content)
+                response.type("text/html")
+                return response
             }
             else if (name === "graphiql.js") {
                 /*  deliver JS  */
@@ -145,7 +147,9 @@ var register = function (server, options, next) {
                     "%graphiql.js"
                 ]
                 content = yield (loadFiles(files))
-                return reply(content).type("text/javascript")
+                var response = h.response(content)
+                response.type("text/javascript")
+                return response
             }
             else if (name === "graphiql.css") {
                 /*  deliver CSS  */
@@ -154,10 +158,12 @@ var register = function (server, options, next) {
                     "graphiql.css"
                 ]
                 content = yield (loadFiles(files))
-                return reply(content).type("text/css")
+                var response = h.response(content)
+                response.type("text/css")
+                return response
             }
             else
-                return reply(Boom.badRequest("invalid path"))
+                return Boom.badRequest("invalid path")
         })
     })
 
@@ -166,19 +172,16 @@ var register = function (server, options, next) {
         server.route({
             method: "GET",
             path: options.documentationURL,
-            handler: co.wrap(function * (request, reply) {
-                reply.file(options.documentationFile, { confine: false })
+            handler: co.wrap(function * (request, h) {
+                return h.file(options.documentationFile, { confine: false })
             })
         })
     }
-
-    /*  continue processing  */
-    next()
 }
 
-/*  provide meta-information as expected by HAPI  */
-register.attributes = { pkg: Package }
-
 /*  export register function, wrapped in a plugin object  */
-module.exports = { register: register }
 
+exports.plugin = {
+  pkg: Package,
+  register,
+};
