@@ -23,20 +23,19 @@
 */
 
 /*  built-in dependencies  */
-var path     = require("path")
+const path     = require("path")
 
 /*  external dependencies  */
-var Promise  = require("bluebird")
-var fs       = require("mz/fs")
-var Boom     = require("boom")
-var co       = require("co")
-var nunjucks = require("nunjucks")
+const fs       = require("mz/fs")
+const Boom     = require("boom")
+const nunjucks = require("nunjucks")
+const Promise  = require("bluebird")
 
 /*  internal dependencies  */
-var Package  = require("./package.json")
+const pkg      = require("./package.json")
 
 /*  the HAPI plugin register function  */
-var register = function (server, options, next) {
+const register = async (server, options) => {
     /*  determine options  */
     options = Object.assign({}, {
         graphiqlSource: "downstream",
@@ -82,8 +81,8 @@ var register = function (server, options, next) {
     server.route({
         method: "GET",
         path: options.graphiqlURL,
-        handler: function (request, reply) {
-            reply.redirect(options.graphiqlURL + "/")
+        handler: async (request, h) => {
+            return h.redirect(options.graphiqlURL + "/")
         }
     })
 
@@ -91,26 +90,26 @@ var register = function (server, options, next) {
     server.route({
         method: "GET",
         path: options.graphiqlURL + "/{name*}",
-        handler: co.wrap(function * (request, reply) {
-            var name = request.params.name
-            var files, content
-            var loadFiles = co.wrap(function * (files) {
-                return (yield (Promise.map(files, co.wrap(function * (file) {
-                    var m
-                    var isTemplate = false
+        handler: async (request, h) => {
+            let name = request.params.name
+            let files, content
+            let loadFiles = async (files) => {
+                return (await (Promise.map(files, async (file) => {
+                    let m
+                    let isTemplate = false
                     if ((m = file.match(/^%(.+)$/)) !== null) {
                         isTemplate = true
                         file = m[1]
                     }
-                    if ((m = file.match(/^@([^\/]+)\/(.+)$/)) !== null) {
+                    if ((m = file.match(/^@([^/]+)\/(.+)$/)) !== null) {
                         file = require.resolve(path.join(m[1], "package.json"))
                         file = path.resolve(file.replace(/package\.json$/, ""), m[2])
                     }
                     else
                         file = path.join(__dirname, file)
-                    var data = yield (fs.readFile(file, "utf8"))
+                    let data = await fs.readFile(file, "utf8")
                     if (isTemplate) {
-                        var env = nunjucks.configure({ autoescape: false })
+                        let env = nunjucks.configure({ autoescape: false })
                         data = (new nunjucks.Template(data, env)).render({
                             graphiqlGlobals:   options.graphiqlGlobals,
                             graphqlFetchURL:   options.graphqlFetchURL,
@@ -123,15 +122,15 @@ var register = function (server, options, next) {
                         })
                     }
                     return data
-                })))).join("")
-            })
+                }))).join("")
+            }
             if (name === undefined || name === "" || name === "graphiql.html") {
                 /*  deliver HTML  */
                 files = [
                     "graphiql.html"
                 ]
-                content = yield (loadFiles(files))
-                return reply(content).type("text/html")
+                content = await loadFiles(files)
+                return h.response(content).type("text/html")
             }
             else if (name === "graphiql.js") {
                 /*  deliver JS  */
@@ -141,24 +140,24 @@ var register = function (server, options, next) {
                     "@react/umd/react.production.min.js",
                     "@react-dom/umd/react-dom.production.min.js",
                     "@react-dom-factories/index.js",
-                    (options.graphiqlSource === "downstream" ? "./local/graphiql.min.js": "@graphiql/graphiql.min.js"),
+                    (options.graphiqlSource === "downstream" ? "./local/graphiql.min.js" : "@graphiql/graphiql.min.js"),
                     "%graphiql.js"
                 ]
-                content = yield (loadFiles(files))
-                return reply(content).type("text/javascript")
+                content = await loadFiles(files)
+                return h.response(content).type("text/javascript")
             }
             else if (name === "graphiql.css") {
                 /*  deliver CSS  */
                 files = [
-                    (options.graphiqlSource === "downstream" ? "./local/graphiql.css": "@graphiql/graphiql.css"),
+                    (options.graphiqlSource === "downstream" ? "./local/graphiql.css" : "@graphiql/graphiql.css"),
                     "graphiql.css"
                 ]
-                content = yield (loadFiles(files))
-                return reply(content).type("text/css")
+                content = await loadFiles(files)
+                return h.response(content).type("text/css")
             }
             else
-                return reply(Boom.badRequest("invalid path"))
-        })
+                return Boom.badRequest("invalid path")
+        }
     })
 
     /*  optional static delivery of documentation  */
@@ -166,19 +165,18 @@ var register = function (server, options, next) {
         server.route({
             method: "GET",
             path: options.documentationURL,
-            handler: co.wrap(function * (request, reply) {
-                reply.file(options.documentationFile, { confine: false })
-            })
+            handler: async (request, h) => {
+                return h.file(options.documentationFile, { confine: false })
+            }
         })
     }
-
-    /*  continue processing  */
-    next()
 }
 
-/*  provide meta-information as expected by HAPI  */
-register.attributes = { pkg: Package }
-
 /*  export register function, wrapped in a plugin object  */
-module.exports = { register: register }
+module.exports = {
+    plugin: {
+        register: register,
+        pkg:      pkg
+    }
+}
 
