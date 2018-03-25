@@ -24,7 +24,7 @@ index 0a735e4..3635434 100644
  .graphiql-container .doc-type-description blockquote:first-child {
    margin-top: 0;
 diff --git a/package.json b/package.json
-index 75f2da4..0d7982a 100644
+index 2ad80c7..82541f4 100644
 --- a/package.json
 +++ b/package.json
 @@ -52,6 +52,7 @@
