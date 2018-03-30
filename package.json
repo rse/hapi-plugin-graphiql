@@ -24,9 +24,9 @@
         "mz":                      "2.7.0",
         "bluebird":                "3.5.1",
         "jquery":                  "3.3.1",
-        "whatwg-fetch":            "2.0.3",
-        "react":                   "16.2.0",
-        "react-dom":               "16.2.0",
+        "whatwg-fetch":            "2.0.4",
+        "react":                   "16.3.0",
+        "react-dom":               "16.3.0",
         "react-dom-factories":     "1.0.2",
         "graphql":                 "0.13.2",
         "graphiql":                "0.11.11",
@@ -40,7 +40,7 @@
         "eslint-config-standard":  "11.0.0",
         "eslint-plugin-standard":  "3.0.1",
         "eslint-plugin-promise":   "3.7.0",
-        "eslint-plugin-import":    "2.9.0",
+        "eslint-plugin-import":    "2.10.0",
         "eslint-plugin-node":      "6.0.1"
     },
     "engines": {
