@@ -51,7 +51,7 @@ server.register({
                 "Content-Type": "application/json",
                 "Accept":       "application/json"
             },
-            body: JSON.stringify(graphQLParams),
+            body: JSON.stringify(params),
             credentials: "same-origin"
         }`,
         loginFetchURL: "/api/auth/login",
@@ -104,7 +104,7 @@ server.register({
             }, token ? {
                 "Authorization": "Bearer " + token
             } : {}),
-            body: JSON.stringify(graphQLParams),
+            body: JSON.stringify(params),
             credentials: "same-origin"
         }`,
         loginFetchURL: "/api/auth/login",
@@ -167,7 +167,7 @@ The supported configuration options are:
             "Content-Type": "application/json",
             "Accept":       "application/json"
         },
-        body: JSON.stringify(graphQLParams),
+        body: JSON.stringify(params),
         credentials: "same-origin"
     }`
     ```
