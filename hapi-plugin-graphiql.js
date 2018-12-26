@@ -136,7 +136,7 @@ const register = async (server, options) => {
                 /*  deliver JS  */
                 files = [
                     "@jquery/dist/jquery.min.js",
-                    "@whatwg-fetch/fetch.js",
+                    "@whatwg-fetch/dist/fetch.umd.js",
                     "@react/umd/react.production.min.js",
                     "@react-dom/umd/react-dom.production.min.js",
                     "@react-dom-factories/index.js",
