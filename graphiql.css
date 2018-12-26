@@ -91,6 +91,7 @@ body {
 .doc-category .field-name         { color: #333333; font-weight: bold; }
 .doc-category .enum-value         { color: #333333; font-weight: bold; }
 .doc-category .arg-name           { color: #333333; }
+.doc-category .arg-default-value  { color: #b06820; }
 .doc-category .type-name          { color: #408edc; }
 .doc-explorer-back:before         { border-left-color: #666666 !important; border-top-color: #666666 !important; }
 .doc-explorer-back                { color: #666666 !important; }
