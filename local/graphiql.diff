@@ -1,13 +1,261 @@
+diff --git a/css/doc-explorer.css b/css/doc-explorer.css
+index 0a735e4..3635434 100644
+--- a/css/doc-explorer.css
++++ b/css/doc-explorer.css
+@@ -72,6 +72,20 @@
+   min-width: 300px;
+ }
+ 
++.graphiql-container .doc-type-kind {
++  border-bottom: 1px solid #e0e0e0;
++  color: #777;
++  cursor: default;
++  font-size: 20px;
++  font-variant: small-caps;
++  font-weight: bold;
++  letter-spacing: 1px;
++  margin: 0 -15px 10px 0;
++  padding: 10px 0;
++  -webkit-user-select: none;
++          user-select: none;
++}
++
+ .graphiql-container .doc-type-description p:first-child ,
+ .graphiql-container .doc-type-description blockquote:first-child {
+   margin-top: 0;
 diff --git a/package.json b/package.json
-index bc2fd12..6f16056 100644
+index 9e477d8..6f16056 100644
 --- a/package.json
 +++ b/package.json
-@@ -52,7 +52,7 @@
+@@ -52,6 +52,7 @@
    "dependencies": {
      "codemirror": "^5.26.0",
      "codemirror-graphql": "^0.7.1",
--    "html-to-react": "1.2.11",
 +    "html-to-react": "1.3.4",
      "markdown-it": "^8.4.0"
    },
    "peerDependencies": {
+diff --git a/src/components/DocExplorer.js b/src/components/DocExplorer.js
+index 165e54f..53569e1 100644
+--- a/src/components/DocExplorer.js
++++ b/src/components/DocExplorer.js
+@@ -101,6 +101,7 @@ export class DocExplorer extends React.Component {
+     } else {
+       content = (
+         <FieldDoc
++          schema={schema}
+           field={navItem.def}
+           onClickType={this.handleClickTypeOrField}
+         />
+diff --git a/src/components/DocExplorer/FieldDoc.js b/src/components/DocExplorer/FieldDoc.js
+index f0ca1f5..3011369 100644
+--- a/src/components/DocExplorer/FieldDoc.js
++++ b/src/components/DocExplorer/FieldDoc.js
+@@ -11,9 +11,11 @@ import PropTypes from 'prop-types';
+ import Argument from './Argument';
+ import MarkdownContent from './MarkdownContent';
+ import TypeLink from './TypeLink';
++import { GraphQLSchema } from 'graphql';
+ 
+ export default class FieldDoc extends React.Component {
+   static propTypes = {
++    schema: PropTypes.instanceOf(GraphQLSchema),
+     field: PropTypes.object,
+     onClickType: PropTypes.func,
+   };
+@@ -38,6 +40,8 @@ export default class FieldDoc extends React.Component {
+                 <Argument arg={arg} onClickType={this.props.onClickType} />
+               </div>
+               <MarkdownContent
++                schema={this.props.schema}
++                onClickType={this.props.onClickType}
+                 className="doc-value-description"
+                 markdown={arg.description}
+               />
+@@ -49,12 +53,19 @@ export default class FieldDoc extends React.Component {
+ 
+     return (
+       <div>
++        <div className="doc-type-kind">
++          {'field'}
++        </div>
+         <MarkdownContent
++          schema={this.props.schema}
++          onClickType={this.props.onClickType}
+           className="doc-type-description"
+           markdown={field.description || 'No Description'}
+         />
+         {field.deprecationReason &&
+           <MarkdownContent
++            schema={this.props.schema}
++            onClickType={this.props.onClickType}
+             className="doc-deprecation"
+             markdown={field.deprecationReason}
+           />}
+diff --git a/src/components/DocExplorer/MarkdownContent.js b/src/components/DocExplorer/MarkdownContent.js
+index 8a5fc03..878da75 100644
+--- a/src/components/DocExplorer/MarkdownContent.js
++++ b/src/components/DocExplorer/MarkdownContent.js
+@@ -8,6 +8,9 @@
+ import React from 'react';
+ import PropTypes from 'prop-types';
+ import MD from 'markdown-it';
++import { GraphQLSchema } from 'graphql';
++import TypeLink from './TypeLink';
++import htmlToReact from 'html-to-react';
+ 
+ const md = new MD();
+ 
+@@ -15,6 +18,8 @@ export default class MarkdownContent extends React.Component {
+   static propTypes = {
+     markdown: PropTypes.string,
+     className: PropTypes.string,
++    schema: PropTypes.instanceOf(GraphQLSchema),
++    onClickType: PropTypes.func
+   };
+ 
+   shouldComponentUpdate(nextProps) {
+@@ -27,11 +32,33 @@ export default class MarkdownContent extends React.Component {
+       return <div />;
+     }
+ 
+-    return (
+-      <div
+-        className={this.props.className}
+-        dangerouslySetInnerHTML={{ __html: md.render(markdown) }}
+-      />
+-    );
++    let html = md.render(markdown, { sanitize: true });
++
++    html = `<div class="${this.props.className}">${html}</div>`
++
++    let typeMap = this.props.schema.getTypeMap();
++    let processNodeDefinitions = new htmlToReact.ProcessNodeDefinitions(React);
++    let instructions = [
++        {
++            shouldProcessNode: (node) => {
++                return node && node.name && node.name === "a";
++            },
++            processNode: (node, children, index) => {
++                let name = node.children.map((child) => child.data).join("");
++                let type = typeMap[name]
++                if (type === undefined)
++                    return processNodeDefinitions.processDefaultNode(node, children, index)
++                else
++                    return <TypeLink type={type} onClick={this.props.onClickType} />;
++            }
++        }, {
++            shouldProcessNode: (node) => true,
++            processNode: processNodeDefinitions.processDefaultNode
++        }
++    ];
++    var htmlToReactParser = new htmlToReact.Parser();
++    var markup = htmlToReactParser.parseWithInstructions(html, () => true, instructions);
++
++    return markup;
+   }
+ }
+diff --git a/src/components/DocExplorer/SchemaDoc.js b/src/components/DocExplorer/SchemaDoc.js
+index 93f7d91..6fbf1a0 100644
+--- a/src/components/DocExplorer/SchemaDoc.js
++++ b/src/components/DocExplorer/SchemaDoc.js
+@@ -32,6 +32,8 @@ export default class SchemaDoc extends React.Component {
+     return (
+       <div>
+         <MarkdownContent
++          schema={schema}
++          onClickType={this.props.onClickType}
+           className="doc-type-description"
+           markdown={
+             'A GraphQL schema provides a root type for each kind of operation.'
+diff --git a/src/components/DocExplorer/TypeDoc.js b/src/components/DocExplorer/TypeDoc.js
+index 2c04128..cb1b4c6 100644
+--- a/src/components/DocExplorer/TypeDoc.js
++++ b/src/components/DocExplorer/TypeDoc.js
+@@ -87,6 +87,7 @@ export default class TypeDoc extends React.Component {
+             .filter(field => !field.isDeprecated)
+             .map(field => (
+               <Field
++                schema={schema}
+                 key={field.name}
+                 type={type}
+                 field={field}
+@@ -109,6 +110,7 @@ export default class TypeDoc extends React.Component {
+             ) : (
+               deprecatedFields.map(field => (
+                 <Field
++                  schema={schema}
+                   key={field.name}
+                   type={type}
+                   field={field}
+@@ -156,7 +158,12 @@ export default class TypeDoc extends React.Component {
+ 
+     return (
+       <div>
++        <div className="doc-type-kind">
++          {'type'}
++        </div>
+         <MarkdownContent
++          schema={this.props.schema}
++          onClickType={this.props.onClickType}
+           className="doc-type-description"
+           markdown={type.description || 'No Description'}
+         />
+@@ -173,7 +180,7 @@ export default class TypeDoc extends React.Component {
+   handleShowDeprecated = () => this.setState({ showDeprecated: true });
+ }
+ 
+-function Field({ type, field, onClickType, onClickField }) {
++function Field({ type, field, onClickType, onClickField, schema }) {
+   return (
+     <div className="doc-category-item">
+       <a
+@@ -196,12 +203,16 @@ function Field({ type, field, onClickType, onClickField }) {
+       <DefaultValue field={field} />
+       {field.description && (
+         <MarkdownContent
++          schema={schema}
++          onClickType={onClickType}
+           className="field-short-description"
+           markdown={field.description}
+         />
+       )}
+       {field.deprecationReason && (
+         <MarkdownContent
++          schema={schema}
++          onClickType={onClickType}
+           className="doc-deprecation"
+           markdown={field.deprecationReason}
+         />
+@@ -222,11 +233,15 @@ function EnumValue({ value }) {
+     <div className="doc-category-item">
+       <div className="enum-value">{value.name}</div>
+       <MarkdownContent
++        schema={this.props.schema}
++        onClickType={this.props.onClickType}
+         className="doc-value-description"
+         markdown={value.description}
+       />
+       {value.deprecationReason && (
+         <MarkdownContent
++          schema={this.props.schema}
++          onClickType={this.props.onClickType}
+           className="doc-deprecation"
+           markdown={value.deprecationReason}
+         />
+diff --git a/src/components/GraphiQL.js b/src/components/GraphiQL.js
+index 5832e6a..efc9e7d 100644
+--- a/src/components/GraphiQL.js
++++ b/src/components/GraphiQL.js
+@@ -699,7 +699,10 @@ export class GraphiQL extends React.Component {
+ 
+   handlePrettifyQuery = () => {
+     const editor = this.getQueryEditor();
+-    editor.setValue(print(parse(editor.getValue())));
++    editor.setValue(print(parse(editor.getValue()).replace(/^( +)/mg, "$1$1")));
++    const variables = JSON.stringify(JSON.parse(this.state.variables), null, 4);
++    const varEditor = this.variableEditorComponent.getCodeMirror();
++    varEditor.setValue(variables);
+   };
+ 
+   handleMergeQuery = () => {
