@@ -1,6 +1,6 @@
 /*
 **  hapi-plugin-graphiql -- HAPI plugin for GraphiQL integration
-**  Copyright (c) 2016-2019 Ralf S. Engelschall <rse@engelschall.com>
+**  Copyright (c) 2016-2019 Dr. Ralf S. Engelschall <rse@engelschall.com>
 **
 **  Permission is hereby granted, free of charge, to any person obtaining
 **  a copy of this software and associated documentation files (the
