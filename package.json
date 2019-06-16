@@ -10,37 +10,37 @@
         "url":  "https://github.com/rse/hapi-plugin-graphiql.git"
     },
     "author": {
-        "name":  "Ralf S. Engelschall",
+        "name":  "Dr. Ralf S. Engelschall",
         "email": "rse@engelschall.com",
         "url":   "http://engelschall.com"
     },
     "homepage": "https://github.com/rse/hapi-plugin-graphiql",
     "bugs":     "https://github.com/rse/hapi-plugin-graphiql/issues",
     "peerDependencies": {
-        "hapi":                    ">=17.0.0"
+        "@hapi/hapi":              ">=18.0.0"
     },
     "dependencies": {
-        "boom":                    "7.3.0",
+        "@hapi/boom":              "7.4.2",
         "mz":                      "2.7.0",
-        "bluebird":                "3.5.3",
-        "jquery":                  "3.3.1",
+        "bluebird":                "3.5.5",
+        "jquery":                  "3.4.1",
         "whatwg-fetch":            "3.0.0",
-        "react":                   "16.7.0",
-        "react-dom":               "16.7.0",
+        "react":                   "16.8.6",
+        "react-dom":               "16.8.6",
         "react-dom-factories":     "1.0.2",
-        "graphql":                 "14.0.2",
-        "graphiql":                "0.12.0",
-        "nunjucks":                "3.1.6"
+        "graphql":                 "14.3.1",
+        "graphiql":                "0.13.0",
+        "nunjucks":                "3.2.0"
     },
     "devDependencies": {
-        "hapi":                    "17.8.1",
+        "@hapi/hapi":              "18.3.1",
         "babel-eslint":            "10.0.1",
-        "eslint":                  "5.11.0",
+        "eslint":                  "5.16.0",
         "eslint-config-standard":  "12.0.0",
         "eslint-plugin-standard":  "4.0.0",
-        "eslint-plugin-promise":   "4.0.1",
-        "eslint-plugin-import":    "2.14.0",
-        "eslint-plugin-node":      "8.0.0"
+        "eslint-plugin-promise":   "4.1.1",
+        "eslint-plugin-import":    "2.17.3",
+        "eslint-plugin-node":      "9.1.0"
     },
     "engines": {
         "node":                    ">=8.0.0"
