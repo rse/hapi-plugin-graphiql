@@ -27,7 +27,7 @@ const path     = require("path")
 
 /*  external dependencies  */
 const fs       = require("mz/fs")
-const Boom     = require("boom")
+const Boom     = require("@hapi/boom")
 const nunjucks = require("nunjucks")
 const Promise  = require("bluebird")
 
