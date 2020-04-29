@@ -23,7 +23,7 @@
         "@hapi/boom":              "7.4.2",
         "mz":                      "2.7.0",
         "bluebird":                "3.5.5",
-        "jquery":                  "3.4.1",
+        "jquery":                  "3.5.0",
         "whatwg-fetch":            "3.0.0",
         "react":                   "16.8.6",
         "react-dom":               "16.8.6",
